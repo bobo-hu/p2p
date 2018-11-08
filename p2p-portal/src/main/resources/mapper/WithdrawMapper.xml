@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.WithdrawMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.Withdraw">
+    <id column="cash_id" jdbcType="INTEGER" property="cashId" />
+    <result column="card_id" jdbcType="INTEGER" property="cardId" />
+    <result column="cash_money" jdbcType="DOUBLE" property="cashMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cash_id, card_id, cash_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_withdraw
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_withdraw
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.Withdraw">
+    insert into t_withdraw (cash_id, card_id, cash_money
+      )
+    values (#{cashId,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{cashMoney,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.Withdraw">
+    insert into t_withdraw
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cashId != null">
+        cash_id,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="cashMoney != null">
+        cash_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cashId != null">
+        #{cashId,jdbcType=INTEGER},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="cashMoney != null">
+        #{cashMoney,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.Withdraw">
+    update t_withdraw
+    <set>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="cashMoney != null">
+        cash_money = #{cashMoney,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.Withdraw">
+    update t_withdraw
+    set card_id = #{cardId,jdbcType=INTEGER},
+      cash_money = #{cashMoney,jdbcType=DOUBLE}
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </update>
+</mapper>

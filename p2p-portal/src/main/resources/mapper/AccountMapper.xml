@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.Account">
+    <id column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="total_account" jdbcType="DOUBLE" property="totalAccount" />
+    <result column="interest_principal" jdbcType="DOUBLE" property="interestPrincipal" />
+    <result column="accumulated_income" jdbcType="DOUBLE" property="accumulatedIncome" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    account_id, user_id, real_name, id_card, total_account, interest_principal, accumulated_income
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_account
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_account
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.Account">
+    insert into t_account (account_id, user_id, real_name, 
+      id_card, total_account, interest_principal, 
+      accumulated_income)
+    values (#{accountId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{idCard,jdbcType=VARCHAR}, #{totalAccount,jdbcType=DOUBLE}, #{interestPrincipal,jdbcType=DOUBLE}, 
+      #{accumulatedIncome,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.Account">
+    insert into t_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="totalAccount != null">
+        total_account,
+      </if>
+      <if test="interestPrincipal != null">
+        interest_principal,
+      </if>
+      <if test="accumulatedIncome != null">
+        accumulated_income,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAccount != null">
+        #{totalAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="interestPrincipal != null">
+        #{interestPrincipal,jdbcType=DOUBLE},
+      </if>
+      <if test="accumulatedIncome != null">
+        #{accumulatedIncome,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.Account">
+    update t_account
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAccount != null">
+        total_account = #{totalAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="interestPrincipal != null">
+        interest_principal = #{interestPrincipal,jdbcType=DOUBLE},
+      </if>
+      <if test="accumulatedIncome != null">
+        accumulated_income = #{accumulatedIncome,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.Account">
+    update t_account
+    set user_id = #{userId,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      total_account = #{totalAccount,jdbcType=DOUBLE},
+      interest_principal = #{interestPrincipal,jdbcType=DOUBLE},
+      accumulated_income = #{accumulatedIncome,jdbcType=DOUBLE}
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.Notice">
+    <id column="notice_id" jdbcType="INTEGER" property="noticeId" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="notice_type" jdbcType="BIT" property="noticeType" />
+    <result column="notice_hits" jdbcType="INTEGER" property="noticeHits" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lx.p2p.portal.entity.Notice">
+    <result column="notice_body" jdbcType="LONGVARCHAR" property="noticeBody" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    notice_id, notice_title, release_time, create_time, notice_type, notice_hits
+  </sql>
+  <sql id="Blob_Column_List">
+    notice_body
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.Notice">
+    insert into t_notice (notice_id, notice_title, release_time, 
+      create_time, notice_type, notice_hits, 
+      notice_body)
+    values (#{noticeId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, #{releaseTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{noticeType,jdbcType=BIT}, #{noticeHits,jdbcType=INTEGER}, 
+      #{noticeBody,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.Notice">
+    insert into t_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        notice_id,
+      </if>
+      <if test="noticeTitle != null">
+        notice_title,
+      </if>
+      <if test="releaseTime != null">
+        release_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="noticeType != null">
+        notice_type,
+      </if>
+      <if test="noticeHits != null">
+        notice_hits,
+      </if>
+      <if test="noticeBody != null">
+        notice_body,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTitle != null">
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTime != null">
+        #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeType != null">
+        #{noticeType,jdbcType=BIT},
+      </if>
+      <if test="noticeHits != null">
+        #{noticeHits,jdbcType=INTEGER},
+      </if>
+      <if test="noticeBody != null">
+        #{noticeBody,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.Notice">
+    update t_notice
+    <set>
+      <if test="noticeTitle != null">
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTime != null">
+        release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeType != null">
+        notice_type = #{noticeType,jdbcType=BIT},
+      </if>
+      <if test="noticeHits != null">
+        notice_hits = #{noticeHits,jdbcType=INTEGER},
+      </if>
+      <if test="noticeBody != null">
+        notice_body = #{noticeBody,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lx.p2p.portal.entity.Notice">
+    update t_notice
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      notice_type = #{noticeType,jdbcType=BIT},
+      notice_hits = #{noticeHits,jdbcType=INTEGER},
+      notice_body = #{noticeBody,jdbcType=LONGVARCHAR}
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.Notice">
+    update t_notice
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      notice_type = #{noticeType,jdbcType=BIT},
+      notice_hits = #{noticeHits,jdbcType=INTEGER}
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.PlatformDataMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.PlatformData">
+    <id column="platform_id" jdbcType="INTEGER" property="platformId" />
+    <result column="platform_money" jdbcType="DOUBLE" property="platformMoney" />
+    <result column="platform_interested" jdbcType="DOUBLE" property="platformInterested" />
+    <result column="platform_count_people" jdbcType="INTEGER" property="platformCountPeople" />
+    <result column="platform_balance" jdbcType="DOUBLE" property="platformBalance" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    platform_id, platform_money, platform_interested, platform_count_people, platform_balance
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_platform_data
+    where platform_id = #{platformId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_platform_data
+    where platform_id = #{platformId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.PlatformData">
+    insert into t_platform_data (platform_id, platform_money, platform_interested, 
+      platform_count_people, platform_balance)
+    values (#{platformId,jdbcType=INTEGER}, #{platformMoney,jdbcType=DOUBLE}, #{platformInterested,jdbcType=DOUBLE}, 
+      #{platformCountPeople,jdbcType=INTEGER}, #{platformBalance,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.PlatformData">
+    insert into t_platform_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="platformId != null">
+        platform_id,
+      </if>
+      <if test="platformMoney != null">
+        platform_money,
+      </if>
+      <if test="platformInterested != null">
+        platform_interested,
+      </if>
+      <if test="platformCountPeople != null">
+        platform_count_people,
+      </if>
+      <if test="platformBalance != null">
+        platform_balance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="platformId != null">
+        #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="platformMoney != null">
+        #{platformMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="platformInterested != null">
+        #{platformInterested,jdbcType=DOUBLE},
+      </if>
+      <if test="platformCountPeople != null">
+        #{platformCountPeople,jdbcType=INTEGER},
+      </if>
+      <if test="platformBalance != null">
+        #{platformBalance,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.PlatformData">
+    update t_platform_data
+    <set>
+      <if test="platformMoney != null">
+        platform_money = #{platformMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="platformInterested != null">
+        platform_interested = #{platformInterested,jdbcType=DOUBLE},
+      </if>
+      <if test="platformCountPeople != null">
+        platform_count_people = #{platformCountPeople,jdbcType=INTEGER},
+      </if>
+      <if test="platformBalance != null">
+        platform_balance = #{platformBalance,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where platform_id = #{platformId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.PlatformData">
+    update t_platform_data
+    set platform_money = #{platformMoney,jdbcType=DOUBLE},
+      platform_interested = #{platformInterested,jdbcType=DOUBLE},
+      platform_count_people = #{platformCountPeople,jdbcType=INTEGER},
+      platform_balance = #{platformBalance,jdbcType=DOUBLE}
+    where platform_id = #{platformId,jdbcType=INTEGER}
+  </update>
+</mapper>

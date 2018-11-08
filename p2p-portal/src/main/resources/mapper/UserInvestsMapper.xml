@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.UserInvestsMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.UserInvests">
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="invest_id" jdbcType="INTEGER" property="investId" />
+    <result column="investor_money" jdbcType="DOUBLE" property="investorMoney" />
+  </resultMap>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.UserInvests">
+    insert into t_user_invests (user_id, invest_id, investor_money
+      )
+    values (#{userId,jdbcType=INTEGER}, #{investId,jdbcType=INTEGER}, #{investorMoney,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.UserInvests">
+    insert into t_user_invests
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="investId != null">
+        invest_id,
+      </if>
+      <if test="investorMoney != null">
+        investor_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="investId != null">
+        #{investId,jdbcType=INTEGER},
+      </if>
+      <if test="investorMoney != null">
+        #{investorMoney,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+</mapper>

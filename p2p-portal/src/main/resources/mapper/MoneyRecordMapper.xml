@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.MoneyRecordMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.MoneyRecord">
+    <id column="money_record_id" jdbcType="INTEGER" property="moneyRecordId" />
+    <result column="money_record_kind" jdbcType="VARCHAR" property="moneyRecordKind" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="money_record_balance" jdbcType="DOUBLE" property="moneyRecordBalance" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lx.p2p.portal.entity.MoneyRecord">
+    <result column="money_record_descption" jdbcType="LONGVARCHAR" property="moneyRecordDescption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    money_record_id, money_record_kind, user_id, money_record_balance
+  </sql>
+  <sql id="Blob_Column_List">
+    money_record_descption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_money_record
+    where money_record_id = #{moneyRecordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_money_record
+    where money_record_id = #{moneyRecordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.MoneyRecord">
+    insert into t_money_record (money_record_id, money_record_kind, user_id, 
+      money_record_balance, money_record_descption
+      )
+    values (#{moneyRecordId,jdbcType=INTEGER}, #{moneyRecordKind,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{moneyRecordBalance,jdbcType=DOUBLE}, #{moneyRecordDescption,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.MoneyRecord">
+    insert into t_money_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moneyRecordId != null">
+        money_record_id,
+      </if>
+      <if test="moneyRecordKind != null">
+        money_record_kind,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="moneyRecordBalance != null">
+        money_record_balance,
+      </if>
+      <if test="moneyRecordDescption != null">
+        money_record_descption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moneyRecordId != null">
+        #{moneyRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyRecordKind != null">
+        #{moneyRecordKind,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyRecordBalance != null">
+        #{moneyRecordBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyRecordDescption != null">
+        #{moneyRecordDescption,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.MoneyRecord">
+    update t_money_record
+    <set>
+      <if test="moneyRecordKind != null">
+        money_record_kind = #{moneyRecordKind,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyRecordBalance != null">
+        money_record_balance = #{moneyRecordBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyRecordDescption != null">
+        money_record_descption = #{moneyRecordDescption,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where money_record_id = #{moneyRecordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lx.p2p.portal.entity.MoneyRecord">
+    update t_money_record
+    set money_record_kind = #{moneyRecordKind,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      money_record_balance = #{moneyRecordBalance,jdbcType=DOUBLE},
+      money_record_descption = #{moneyRecordDescption,jdbcType=LONGVARCHAR}
+    where money_record_id = #{moneyRecordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.MoneyRecord">
+    update t_money_record
+    set money_record_kind = #{moneyRecordKind,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      money_record_balance = #{moneyRecordBalance,jdbcType=DOUBLE}
+    where money_record_id = #{moneyRecordId,jdbcType=INTEGER}
+  </update>
+</mapper>

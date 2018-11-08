@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.RechargeMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.Recharge">
+    <id column="recharge_id" jdbcType="INTEGER" property="rechargeId" />
+    <result column="card_id" jdbcType="INTEGER" property="cardId" />
+    <result column="recharge_money" jdbcType="DOUBLE" property="rechargeMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    recharge_id, card_id, recharge_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_recharge
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_recharge
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.Recharge">
+    insert into t_recharge (recharge_id, card_id, recharge_money
+      )
+    values (#{rechargeId,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{rechargeMoney,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.Recharge">
+    insert into t_recharge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rechargeId != null">
+        recharge_id,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="rechargeMoney != null">
+        recharge_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rechargeId != null">
+        #{rechargeId,jdbcType=INTEGER},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeMoney != null">
+        #{rechargeMoney,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.Recharge">
+    update t_recharge
+    <set>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeMoney != null">
+        recharge_money = #{rechargeMoney,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.Recharge">
+    update t_recharge
+    set card_id = #{cardId,jdbcType=INTEGER},
+      recharge_money = #{rechargeMoney,jdbcType=DOUBLE}
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </update>
+</mapper>

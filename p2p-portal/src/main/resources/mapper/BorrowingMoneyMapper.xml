@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.BorrowingMoneyMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.BorrowingMoney">
+    <id column="borrowing_id" jdbcType="INTEGER" property="borrowingId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="borrowing_amount" jdbcType="VARCHAR" property="borrowingAmount" />
+    <result column="loan_term" jdbcType="VARCHAR" property="loanTerm" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="guarantee" jdbcType="VARCHAR" property="guarantee" />
+    <result column="interest_rate" jdbcType="DOUBLE" property="interestRate" />
+    <collection property="invests" ofType="com.lx.p2p.portal.entity.Invests">
+    </collection>
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lx.p2p.portal.entity.BorrowingMoneyWithBLOBs">
+    <result column="woker_info" jdbcType="LONGVARCHAR" property="wokerInfo" />
+    <result column="property_info" jdbcType="LONGVARCHAR" property="propertyInfo" />
+    <result column="use_info" jdbcType="LONGVARCHAR" property="useInfo" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    borrowing_id, user_id, borrowing_amount, loan_term, create_time, guarantee, interest_rate
+  </sql>
+  <sql id="Blob_Column_List">
+    woker_info, property_info, use_info
+  </sql>
+  
+  <select id="getFindList" resultMap="BaseResultMap">
+  	select * from t_borrowing_money
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_borrowing_money
+    where borrowing_id = #{borrowingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_borrowing_money
+    where borrowing_id = #{borrowingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.BorrowingMoneyWithBLOBs">
+    insert into t_borrowing_money (borrowing_id, user_id, borrowing_amount, 
+      loan_term, create_time, guarantee, 
+      interest_rate, woker_info, property_info, 
+      use_info)
+    values (#{borrowingId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{borrowingAmount,jdbcType=VARCHAR}, 
+      #{loanTerm,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{guarantee,jdbcType=VARCHAR}, 
+      #{interestRate,jdbcType=DOUBLE}, #{wokerInfo,jdbcType=LONGVARCHAR}, #{propertyInfo,jdbcType=LONGVARCHAR}, 
+      #{useInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.BorrowingMoneyWithBLOBs">
+    insert into t_borrowing_money
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="borrowingId != null">
+        borrowing_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="borrowingAmount != null">
+        borrowing_amount,
+      </if>
+      <if test="loanTerm != null">
+        loan_term,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="guarantee != null">
+        guarantee,
+      </if>
+      <if test="interestRate != null">
+        interest_rate,
+      </if>
+      <if test="wokerInfo != null">
+        woker_info,
+      </if>
+      <if test="propertyInfo != null">
+        property_info,
+      </if>
+      <if test="useInfo != null">
+        use_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="borrowingId != null">
+        #{borrowingId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowingAmount != null">
+        #{borrowingAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTerm != null">
+        #{loanTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="guarantee != null">
+        #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="interestRate != null">
+        #{interestRate,jdbcType=DOUBLE},
+      </if>
+      <if test="wokerInfo != null">
+        #{wokerInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="propertyInfo != null">
+        #{propertyInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="useInfo != null">
+        #{useInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.BorrowingMoneyWithBLOBs">
+    update t_borrowing_money
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowingAmount != null">
+        borrowing_amount = #{borrowingAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTerm != null">
+        loan_term = #{loanTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="guarantee != null">
+        guarantee = #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="interestRate != null">
+        interest_rate = #{interestRate,jdbcType=DOUBLE},
+      </if>
+      <if test="wokerInfo != null">
+        woker_info = #{wokerInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="propertyInfo != null">
+        property_info = #{propertyInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="useInfo != null">
+        use_info = #{useInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where borrowing_id = #{borrowingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lx.p2p.portal.entity.BorrowingMoneyWithBLOBs">
+    update t_borrowing_money
+    set user_id = #{userId,jdbcType=INTEGER},
+      borrowing_amount = #{borrowingAmount,jdbcType=VARCHAR},
+      loan_term = #{loanTerm,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      guarantee = #{guarantee,jdbcType=VARCHAR},
+      interest_rate = #{interestRate,jdbcType=DOUBLE},
+      woker_info = #{wokerInfo,jdbcType=LONGVARCHAR},
+      property_info = #{propertyInfo,jdbcType=LONGVARCHAR},
+      use_info = #{useInfo,jdbcType=LONGVARCHAR}
+    where borrowing_id = #{borrowingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.BorrowingMoney">
+    update t_borrowing_money
+    set user_id = #{userId,jdbcType=INTEGER},
+      borrowing_amount = #{borrowingAmount,jdbcType=VARCHAR},
+      loan_term = #{loanTerm,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      guarantee = #{guarantee,jdbcType=VARCHAR},
+      interest_rate = #{interestRate,jdbcType=DOUBLE}
+    where borrowing_id = #{borrowingId,jdbcType=INTEGER}
+  </update>
+</mapper>

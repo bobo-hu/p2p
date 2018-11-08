@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.p2p.portal.mapper.PrizeMapper">
+  <resultMap id="BaseResultMap" type="com.lx.p2p.portal.entity.Prize">
+    <id column="prize_id" jdbcType="INTEGER" property="prizeId" />
+    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+    <result column="prize_content" jdbcType="VARCHAR" property="prizeContent" />
+    <result column="prize_last_time" jdbcType="VARCHAR" property="prizeLastTime" />
+    <result column="prize_state" jdbcType="BIT" property="prizeState" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    prize_id, prize_name, prize_content, prize_last_time, prize_state, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_prize
+    where prize_id = #{prizeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_prize
+    where prize_id = #{prizeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lx.p2p.portal.entity.Prize">
+    insert into t_prize (prize_id, prize_name, prize_content, 
+      prize_last_time, prize_state, user_id
+      )
+    values (#{prizeId,jdbcType=INTEGER}, #{prizeName,jdbcType=VARCHAR}, #{prizeContent,jdbcType=VARCHAR}, 
+      #{prizeLastTime,jdbcType=VARCHAR}, #{prizeState,jdbcType=BIT}, #{userId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lx.p2p.portal.entity.Prize">
+    insert into t_prize
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prizeId != null">
+        prize_id,
+      </if>
+      <if test="prizeName != null">
+        prize_name,
+      </if>
+      <if test="prizeContent != null">
+        prize_content,
+      </if>
+      <if test="prizeLastTime != null">
+        prize_last_time,
+      </if>
+      <if test="prizeState != null">
+        prize_state,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prizeId != null">
+        #{prizeId,jdbcType=INTEGER},
+      </if>
+      <if test="prizeName != null">
+        #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeContent != null">
+        #{prizeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeLastTime != null">
+        #{prizeLastTime,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeState != null">
+        #{prizeState,jdbcType=BIT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lx.p2p.portal.entity.Prize">
+    update t_prize
+    <set>
+      <if test="prizeName != null">
+        prize_name = #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeContent != null">
+        prize_content = #{prizeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeLastTime != null">
+        prize_last_time = #{prizeLastTime,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeState != null">
+        prize_state = #{prizeState,jdbcType=BIT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prize_id = #{prizeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lx.p2p.portal.entity.Prize">
+    update t_prize
+    set prize_name = #{prizeName,jdbcType=VARCHAR},
+      prize_content = #{prizeContent,jdbcType=VARCHAR},
+      prize_last_time = #{prizeLastTime,jdbcType=VARCHAR},
+      prize_state = #{prizeState,jdbcType=BIT},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where prize_id = #{prizeId,jdbcType=INTEGER}
+  </update>
+</mapper>
